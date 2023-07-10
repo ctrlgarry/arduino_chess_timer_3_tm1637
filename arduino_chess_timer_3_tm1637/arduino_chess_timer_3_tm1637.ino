@@ -12,10 +12,11 @@
    GyverTM1637 disp3(CLK3, DIO3);
 
 
-   enum state  {Timer1, Timer2, Pause};
+   enum state  {Timer1, Timer2, Timer3, Pause};
    int current_state = Pause;
    uint32_t time1 = 0;
    uint32_t time2 = 0;
+   uint32_t time3 = 0;
    uint32_t myTimer = 0;
 
 
@@ -28,8 +29,9 @@
      disp2.brightness(7);  // яркость, 0 - 7 (минимум - максимум)
      disp3.clear();        // чистим второй дисплей
      disp3.brightness(7);  // яркость, 0 - 7 (минимум - максимум)
-     pinMode(10, INPUT_PULLUP); // старт 1 дисплей
-     pinMode(11, INPUT_PULLUP); // старт 2 дисплей
+     pinMode(9, INPUT_PULLUP); // старт 1 дисплей
+     pinMode(10, INPUT_PULLUP); // старт 2 дисплей
+     pinMode(11, INPUT_PULLUP); // старт 3 дисплей
      pinMode(12, INPUT_PULLUP); // пауза
    }
 
@@ -38,6 +40,7 @@
      // Set Value
      bool buttonstart1 = false; //выставляет по умолчанию 0 для сигнала кнопки
      bool buttonstart2 = false; //выставляет по умолчанию 0 для сигнала кнопки
+     bool buttonstart3 = false; //выставляет по умолчанию 0 для сигнала кнопки
      bool buttonpause = false; //выставляет по умолчанию 0 для сигнала кнопки
      bool timeEvent = false; //выставляет по умолчанию 0 для события
      bool pushButton = false; //выставляет по умолчанию 0 для нажатий кнопок
@@ -45,8 +48,9 @@
      bool DEBUG = true;
 
 
-       if (digitalRead(10) == 0) buttonstart1 = true,  pushButton = true;//выставляет 1 при нажатии кнопки
-       if (digitalRead(11) == 0) buttonstart2 = true, pushButton = true;
+       if (digitalRead(9) == 0) buttonstart1 = true,  pushButton = true;//выставляет 1 при нажатии кнопки
+       if (digitalRead(10) == 0) buttonstart2 = true, pushButton = true;
+       if (digitalRead(11) == 0) buttonstart3 = true, pushButton = true;
        if (digitalRead(12) == 0) buttonpause = true, pushButton = true;
 
      // создает событие при нажатии на кнопку
@@ -65,6 +69,11 @@
          if (timeEvent) {
            time2++;
            disp2.displayInt(time2), Serial.println("time2"), Serial.println(time2);  // Вывод на экран2 состояния
+         }
+      } else if (current_state == Timer3 == true) {
+         if (timeEvent) {
+           time3++;
+           disp3.displayInt(time3), Serial.println("time3"), Serial.println(time3);  // Вывод на экран2 состояния
          }
       } else if (current_state == Pause) {
            if (timeEvent) {
