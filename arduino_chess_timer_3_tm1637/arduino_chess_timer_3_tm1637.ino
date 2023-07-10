@@ -48,40 +48,45 @@
      bool DEBUG = true;
 
 
-       if (digitalRead(9) == 0) buttonstart1 = true,  pushButton = true;//выставляет 1 при нажатии кнопки
-       if (digitalRead(10) == 0) buttonstart2 = true, pushButton = true;
-       if (digitalRead(11) == 0) buttonstart3 = true, pushButton = true;
-       if (digitalRead(12) == 0) buttonpause = true, pushButton = true;
+    if (digitalRead(9) == 0) buttonstart1 = true,  pushButton = true;//выставляет 1 при нажатии кнопки
+    if (digitalRead(10) == 0) buttonstart2 = true, pushButton = true;
+    if (digitalRead(11) == 0) buttonstart3 = true, pushButton = true;
+    if (digitalRead(12) == 0) buttonpause = true, pushButton = true;
 
      // создает событие при нажатии на кнопку
 
-     if (millis() - myTimer >= 1000) {
+    if (millis() - myTimer >= 1000) {
        myTimer = millis();
        timeEvent = true; //каждую секунду орет в timeEvent
-     }
+    }
 
-     if (current_state == Timer1 == true) {
-         if (timeEvent) {
-           time1++;
-           disp1.displayInt(time1), Serial.println("time1"), Serial.println(time1);  // Вывод на экран1 состояния
-         }
-      } else if (current_state == Timer2 == true) {
-         if (timeEvent) {
-           time2++;
-           disp2.displayInt(time2), Serial.println("time2"), Serial.println(time2);  // Вывод на экран2 состояния
-         }
-      } else if (current_state == Timer3 == true) {
-         if (timeEvent) {
-           time3++;
-           disp3.displayInt(time3), Serial.println("time3"), Serial.println(time3);  // Вывод на экран2 состояния
-         }
-      } else if (current_state == Pause) {
-           if (timeEvent) {
-             Serial.println("wait");
-             if (buttonstart1 = true) current_state = Timer1;
-             else if (buttonstart2 = true) current_state = Timer2;
-             else current_state = Pause;
-           }
-             if (buttonpause == true) current_state = Pause;
+    if      (buttonstart1 == true) current_state = Timer1;
+    else if (buttonstart2 == true) current_state = Timer2;
+    else if (buttonstart3 == true) current_state = Timer3;   
+    else if (buttonpause == true) current_state = Pause;
+
+    if (current_state == Timer1 == true) {
+      if (timeEvent) {
+         time1++;
+          disp2.displayInt(time1), Serial.println("time1"), Serial.println(time1);  // Вывод на экран2 состояния
       }
-   }
+    } else if (current_state == Timer2 == true) {
+      if (timeEvent) {
+         time2++;
+          disp2.displayInt(time2), Serial.println("time2"), Serial.println(time2);  // Вывод на экран2 состояния
+      }
+    } else if (current_state == Timer3 == true) {
+      if (timeEvent) {
+        time3++;
+        disp3.displayInt(time3), Serial.println("time3"), Serial.println(time3);  // Вывод на экран2 состояния
+      }
+    } else if (current_state == Pause) {
+      if (timeEvent) {
+        Serial.println("Pause");
+        if (buttonstart1 = true) current_state = Timer1;
+        else if (buttonstart2 = true) current_state = Timer2;
+        else current_state = Pause;
+      }
+      if (buttonpause == true) current_state = Pause;
+    }
+  }
