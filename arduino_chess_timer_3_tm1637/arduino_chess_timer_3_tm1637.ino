@@ -25,10 +25,13 @@
       Serial.begin(9600);
       disp1.clear();        // чистим первый дисплей
       disp1.brightness(7);  // яркость, 0 - 7 (минимум - максимум)
+      disp1.displayInt(0000);// вывести ---- на экране
       disp2.clear();        // чистим второй дисплей
       disp2.brightness(7);  // яркость, 0 - 7 (минимум - максимум)
+      disp2.displayInt(0000);// вывести ---- на экране
       disp3.clear();        // чистим второй дисплей
       disp3.brightness(7);  // яркость, 0 - 7 (минимум - максимум)
+      disp3.displayInt(0000);// вывести ---- на экране
       pinMode(9, INPUT_PULLUP); // старт 1 дисплей
       pinMode(10, INPUT_PULLUP); // старт 2 дисплей
       pinMode(11, INPUT_PULLUP); // старт 3 дисплей
@@ -61,32 +64,31 @@
      }
 
      if      (buttonpause == true) current_state = Pause;//, Serial.println("pause");
-     else if (buttonstart1 == true) current_state = Timer1;//, Serial.println("button1");
-     else if (buttonstart2 == true) current_state = Timer2;//, Serial.println("button2");
-     else if (buttonstart3 == true) current_state = Timer3;//, Serial.println("button3");
+     if (current_state == Pause){
+      if      (buttonstart1 == true) current_state = Timer1;//, Serial.println("button1");
+      else if (buttonstart2 == true) current_state = Timer2;//, Serial.println("button2");
+      else if (buttonstart3 == true) current_state = Timer3;//, Serial.println("button3");
+     }
 
-     if (current_state == Timer1 == true) {
+     if (current_state == Timer1) {
        if (timeEvent) {
           time1++;
            disp1.displayInt(time1), Serial.println("time1"), Serial.println(time1);  // Вывод на экран1 состояния
        }
-     } else if (current_state == Timer2 == true) {
+     } else if (current_state == Timer2) {
        if (timeEvent) {
           time2++;
            disp2.displayInt(time2), Serial.println("time2"), Serial.println(time2);  // Вывод на экран2 состояния
        }
-     } else if (current_state == Timer3 == true) {
+     } else if (current_state == Timer3) {
        if (timeEvent) {
          time3++;
          disp3.displayInt(time3), Serial.println("time3"), Serial.println(time3);  // Вывод на экран3 состояния
        }
-     } else if (current_state == Pause == false) {
+     } else if (current_state == Pause) {
        if (timeEvent) {
          Serial.println("Pause");
-         if (buttonstart1 = true) current_state = Timer1;
-         else if (buttonstart2 = true) current_state = Timer2;
-         else current_state = Pause;
-       }
        if (buttonpause == true) current_state = Pause;
+       }
      }
    }
