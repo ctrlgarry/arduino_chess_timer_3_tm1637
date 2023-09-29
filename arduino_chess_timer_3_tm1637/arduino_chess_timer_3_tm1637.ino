@@ -75,41 +75,66 @@
      if (current_state == Timer1) {
     if (timeEvent) {       // каждую секунду
       flag1 = !flag1;
-      disp1.point(flag1);   // вкл/выкл точки
+      //disp1.point(flag1);   // вкл/выкл точки
       time1 ++;
       int timeHours1 = (time1 / 3600ul);        // часы
       int timeMins1 = (time1 % 3600ul) / 60ul;  // минуты
       int timeSecs1 = (time1 % 3600ul) % 60ul;  // секунды
-      Serial.println((timeHours1*10000)+(timeMins1*100)+timeSecs1); //сложная математека для вывода часоминутосекунд одним числом
-      disp1.displayInt((timeHours1*10000)+(timeMins1*100)+timeSecs1);
+      if (time1 < 3600){
+        Serial.println((timeMins1*100)+timeSecs1); //сложная математека для вывода часоминутосекунд одним числом
+        disp1.displayInt((timeMins1*100)+timeSecs1);
+        disp1.point(flag1);
+      } else {
+        Serial.println((timeHours1*10000)+(timeMins1*100)+timeSecs1); //сложная математека для вывода часоминутосекунд одним числом
+        disp1.displayInt((timeHours1*100)+(timeMins1));
+        disp1.point(flag1);
+      }
+      //disp1.point(flag1);
+      Serial.println("time1");
     }
-  disp1.point(0);   // выкл точки
+  //disp1.point(0);   // выкл точки
 
      } else if (current_state == Timer2) {
     if (timeEvent) {       // каждую секунду
       flag2 = !flag2;
-      disp2.point(flag2);   // вкл/выкл точки
+      //disp2.point(flag2);   // вкл/выкл точки
       time2 ++;
       int timeHours2 = (time2 / 3600ul);        // часы
       int timeMins2 = (time2 % 3600ul) / 60ul;  // минуты
       int timeSecs2 = (time2 % 3600ul) % 60ul;  // секунды
-      Serial.println((timeHours2*10000)+(timeMins2*100)+timeSecs2); //сложная математека для вывода часоминутосекунд одним числом
-      disp1.displayInt((timeHours2*10000)+(timeMins2*100)+timeSecs2);
+      if (time2 < 3600){
+        Serial.println((timeMins2*100)+timeSecs2); //сложная математека для вывода часоминутосекунд одним числом
+        disp2.displayInt((timeMins2*100)+timeSecs2);
+        disp2.point(flag2);
+      } else {
+        Serial.println((timeHours2*10000)+(timeMins2*100)+timeSecs2); //сложная математека для вывода часоминутосекунд одним числом
+        disp2.displayInt((timeHours2*100)+(timeMins2));
+        disp2.point(flag2);
+      }
+      Serial.println("time2");
     }
-  disp2.point(0);   // выкл точки
+  //disp2.point(0);   // выкл точки
 
      } else if (current_state == Timer3) {
     if (timeEvent) {       // каждую секунду
       flag3 = !flag3;
-      disp3.point(flag3);   // вкл/выкл точки
+      //disp3.point(flag3);   // вкл/выкл точки
       time3 ++;
       int timeHours3 = (time3 / 3600ul);        // часы
       int timeMins3 = (time3 % 3600ul) / 60ul;  // минуты
       int timeSecs3 = (time3 % 3600ul) % 60ul;  // секунды
-      Serial.println((timeHours3*10000)+(timeMins3*100)+timeSecs3); //сложная математека для вывода часоминутосекунд одним числом
-      disp1.displayInt((timeHours3*10000)+(timeMins3*100)+timeSecs3);
+      if (time3 < 3600){
+        Serial.println((timeMins3*100)+timeSecs3); //сложная математека для вывода часоминутосекунд одним числом
+        disp3.displayInt((timeMins3*100)+timeSecs3);
+        disp3.point(flag3);
+      } else {
+        Serial.println((timeHours3*10000)+(timeMins3*100)+timeSecs3); //сложная математека для вывода часоминутосекунд одним числом
+        disp3.displayInt((timeHours3*100)+(timeMins3));
+        disp3.point(flag3);
+      }      
+      Serial.println("time3");
     }
-  disp2.point(0);   // выкл точки
+  //disp3.point(0);   // выкл точки
 
      } else if (current_state == Pause) {
        if (timeEvent) {
